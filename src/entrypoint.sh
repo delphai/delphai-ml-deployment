@@ -2,5 +2,5 @@
 
 set -e
 
-python /code/service.py
+python /src/service.py
 cat workspace.json
