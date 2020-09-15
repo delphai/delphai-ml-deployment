@@ -12,3 +12,4 @@ workspace_dict = {
 }
 with open("workspace.json", "w") as outfile: 
     json.dump(workspace_dict, outfile) 
+print(f"::set-output name=workspace::workspace.json")

@@ -10,6 +10,7 @@ inputs:
     required: true
 outputs:
   workspace:
+    
     description: "workspace.json"
 branding:
   icon: "chevron-up"
