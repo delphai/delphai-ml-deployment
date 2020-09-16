@@ -26,9 +26,13 @@ inputs:
     description: 'Compute Target'
     required: true
   
-  parameters_file:
+  entry_file:
     description: 'File'
-    required: true
+    required: false
+
+  conda_file:
+    description: 'Conda file or dependencies managment'
+    required: false
     
 
 branding:

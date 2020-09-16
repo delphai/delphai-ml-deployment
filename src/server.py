@@ -86,38 +86,37 @@ def main():
         raise AMLConfigurationException(f"Could not load model with provided details: {exception}")
 
     # Loading deployment target
-    # print("::debug::Loading deployment target")
-    #     try:
-    #         deployment_target = ComputeTarget(
-    #             workspace=ws,
-    #             name=os.environ.get("INPUT_COMPUTE_TARGET")
-    #         )
-    #     except ComputeTargetException:
-    #         deployment_target = None
-    #     except TypeError:
-    #         deployment_target = None
+    print("::debug::Loading deployment target")
+        try:
+            deployment_target = ComputeTarget(
+                workspace=ws,
+                name=os.environ.get("INPUT_COMPUTE_TARGET")
+            )
+        except ComputeTargetException:
+            deployment_target = None
+        except TypeError:
+            deployment_target = None
 
-    # Loading parameters file
-    print("::debug::Loading parameters file")
-    parameters_file = os.environ.get("INPUT_PARAMETERS_FILE", default="deploy.json")
-    parameters_file_path = os.path.join(".cloud", ".azure", parameters_file)
-    try:
-        with open(parameters_file_path) as f:
-            parameters = json.load(f)
-            print(parameters)
-    except FileNotFoundError:
-        print(f"::debug::Could not find parameter file in {parameters_file_path}. Please provide a parameter file in your repository  if you do not want to use default settings (e.g. .cloud/.azure/deploy.json).")
-        parameters = {}
+    # Loading entry and conda file
+    print("::debug::Loading entry_file & Conda file")
+    entry_file = os.environ.get("INPUT_ENTRY_FILE", default="entry.py")
+    entry_file_path = os.path.join("src", parameters_file)
+    
+    conda_file = os.environ.get("INPUT_CONDA_FILE", default="conda.yml")
+    conda_ffile_path = os.path.join("src", conda_file)
+
+    
+    inference_config = InferenceConfig(
+            entry_script= entry_file_path
+            runtime="python"
+            conda_file=conda_ffile_path
+        )
 
 
-    # try:
-    #     inference_config = InferenceConfig(
-    #         entry_script=
-    #     )
-    # # Deploying model
+    # Deploying model
     # print("::debug::Deploying model")
     # try:
-    #     service = Model.deploy(workspace=ws,name=model_name,models=[model],inference_config=)
+    #     service = Model.deploy(workspace=ws,name=model_name,models=[model],inference_config=InferenceConfig)
 
     
 

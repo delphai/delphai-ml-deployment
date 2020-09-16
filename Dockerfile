@@ -1,4 +1,5 @@
 FROM python:3.8
+LABEL maintainer="delphai/devops"
 WORKDIR /app
 RUN pip install pipenv
 ENV PIPENV_VENV_IN_PROJECT=true 
