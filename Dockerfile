@@ -6,4 +6,4 @@ COPY Pipfile Pipfile.lock  /app/
 RUN pipenv lock -r > requirements.txt
 RUN pip install -r requirements.txt
 COPY . /app
-ENTRYPOINT ["/src/entrypoint.sh"]
+ENTRYPOINT ["python", "src/deploy.py"]
