@@ -58,9 +58,10 @@ def main():
         raise AuthenticationException
     
     print("::debug::Loading Workspace values")
-    ws_path = os.environ.get("INPUT_WORKSPACE")
+    ws_path        = os.environ.get("INPUT_WORKSPACE")
+    resource_group = os.environ.get("INPUT_RESOURCE_GROUP")
     
-    ws =Workspace.from_config(path=ws_path,auth=sp)
+    ws =Workspace.get(name=ws_path,auth=sp,subscription_id=subscription_id,resource_group=resource_group)
     print(ws)
 
 
