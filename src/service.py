@@ -10,6 +10,6 @@ workspace_dict = {
     'name'           : workspace_name,
     'resource_group' : resource_group
 }
-with open("workspace.json", "w") as outfile: 
-    json.dump(workspace_dict, outfile) 
-print(f"::set-output name=workspace::workspace.json")
+
+f = json.dumps(workspace_dict)
+print(f"::set-output name=workspace::{f}")

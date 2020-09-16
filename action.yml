@@ -8,10 +8,11 @@ inputs:
   resource_group:
     description: "Resource Group on Azure"
     required: true
+
 outputs:
   workspace:
-    
     description: "workspace.json"
+
 branding:
   icon: "chevron-up"
   color: "blue"
