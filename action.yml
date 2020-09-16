@@ -18,12 +18,18 @@ inputs:
     description: 'Which resource group in the subscription'
     required: true
 
-    
   workspace:
     description: 'Workspace on azure'
     required: true
-  
 
+  compute_target:
+    description: 'Compute Target'
+    required: true
+  
+  parameters_file:
+    description: 'File'
+    required: true
+    
 
 branding:
   icon: "chevron-up"
