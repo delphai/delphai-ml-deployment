@@ -105,19 +105,33 @@ def main():
     conda_file = os.environ.get("INPUT_CONDA_FILE", default="conda.yml")
     conda_ffile_path = os.path.join("src", conda_file)
 
-    
-    inference_config = InferenceConfig(
+    try:
+        inference_config = InferenceConfig(
             entry_script= entry_file_path,
             runtime='python',
             conda_file=conda_ffile_path,
         )
+    except:
+        print('::debug:: Make sure conda.yml and entry.py are in the [src] directory')
+    
+    replicas = os.environ.get('INPUT_REPLICAS',default=3)
+    namespace= os.environ.get('INPUT_NAMESPACE')
+    deployment_configration= AksWebservice.deploy_configuration(autoscale_enabled=False, num_replicas=replicas,namespace=namespace)
 
     
 
     # Deploying model
-    # print("::debug::Deploying model")
-    # try:
-    #     service = Model.deploy(workspace=ws,name=model_name,models=[model],inference_config=InferenceConfig,)
+    print("::debug::Deploying model")
+    
+    service = Model.deploy(
+        workspace=ws,
+        name=model_name,
+        models=[model],
+        inference_config=InferenceConfig,
+        deployment_config=deployment_configration,
+        deployment_target=deployment_target,
+        overwrite=True)
+
 
     
 

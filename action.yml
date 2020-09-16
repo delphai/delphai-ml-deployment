@@ -33,8 +33,15 @@ inputs:
   conda_file:
     description: 'Conda file or dependencies managment'
     required: false
+  
+  replicas:
+    description: 'Number of desired replicas'
+    required: false
+  
+  namespace:
+    description: 'Kubernetes namespace'
+    required: true
     
-
 branding:
   icon: "chevron-up"
   color: "blue"
