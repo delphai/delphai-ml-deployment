@@ -87,15 +87,15 @@ def main():
 
     # Loading deployment target
     print("::debug::Loading deployment target")
-        try:
-            deployment_target = ComputeTarget(
-                workspace=ws,
-                name=os.environ.get("INPUT_COMPUTE_TARGET")
-            )
-        except ComputeTargetException:
-            deployment_target = None
-        except TypeError:
-            deployment_target = None
+    try:
+        deployment_target = ComputeTarget(
+            workspace=ws,
+            name=os.environ.get("INPUT_COMPUTE_TARGET")
+        )
+    except ComputeTargetException:
+        deployment_target = None
+    except TypeError:
+        deployment_target = None
 
     # Loading entry and conda file
     print("::debug::Loading entry_file & Conda file")
