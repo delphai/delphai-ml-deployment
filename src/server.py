@@ -115,6 +115,11 @@ def main():
         print('::debug:: Make sure conda.yml and entry.py are in the [src] directory')
     
     replicas = os.environ.get('INPUT_REPLICAS',default=3)
+    try:
+        replicas = int(replicas)
+    except TypeError as exception:
+        print(f"::debug::Could not cast model version to int: {exception}")
+        replicas = 3   
     namespace= os.environ.get('INPUT_NAMESPACE')
     deployment_configration= AksWebservice.deploy_configuration(autoscale_enabled=False, num_replicas=replicas,namespace=namespace)
 
