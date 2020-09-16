@@ -2,5 +2,4 @@
 
 set -e
 
-python /src/service.py
-cat workspace.json
+python /src/deploy.py
