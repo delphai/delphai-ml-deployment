@@ -107,16 +107,16 @@ def main():
 
     
     inference_config = InferenceConfig(
-            entry_script= entry_file_path
-            runtime="python"
-            conda_file=conda_ffile_path
+            entry_script= entry_file_path,
+            runtime='python',
+            conda_file=conda_ffile_path,
         )
 
 
     # Deploying model
     # print("::debug::Deploying model")
     # try:
-    #     service = Model.deploy(workspace=ws,name=model_name,models=[model],inference_config=InferenceConfig)
+    #     service = Model.deploy(workspace=ws,name=model_name,models=[model],inference_config=InferenceConfig,)
 
     
 
