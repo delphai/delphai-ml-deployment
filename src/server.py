@@ -5,7 +5,7 @@ import importlib
 
 from azureml.core import Workspace, Model, ContainerRegistry
 from azureml.core.compute import ComputeTarget, AksCompute
-from azureml.core.model import InferenceConfig
+from azureml.core.model import InferenceConfig, Environment
 from azureml.core.webservice import AksWebservice, AciWebservice
 from azureml.exceptions import ComputeTargetException, AuthenticationException, ProjectSystemException, WebserviceException
 from azureml.core.authentication import ServicePrincipalAuthentication
@@ -105,11 +105,13 @@ def main():
     conda_file = os.environ.get("INPUT_CONDA_FILE", default="conda.yml")
     conda_ffile_path = os.path.join("src", conda_file)
 
+    envir= Environment(name=model_name.replace("_","-"))
     try:
         inference_config = InferenceConfig(
             entry_script= entry_file_path,
             runtime='python',
             conda_file=conda_ffile_path,
+            environment=envir
         )
     except:
         print('::debug:: Make sure conda.yml and entry.py are in the [src] directory')
