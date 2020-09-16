@@ -130,7 +130,7 @@ def main():
     
     service = Model.deploy(
         workspace=ws,
-        name=model_name,
+        name=model_name.replace("_","-"),
         models=[model],
         inference_config=InferenceConfig,
         deployment_config=deployment_configration,
