@@ -6,6 +6,20 @@ inputs:
     description: "Paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS"
     required: true
 
+  model_name:
+    description: 'Model name'
+    required: true
+
+  model_version:
+    description: 'Model name must be an int'
+    required: true
+
+  workspace:
+    description: 'Workspace on azure'
+    required: true
+  
+
+
 branding:
   icon: "chevron-up"
   color: "blue"

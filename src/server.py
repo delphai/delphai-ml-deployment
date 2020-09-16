@@ -22,10 +22,64 @@ def main():
         print("::error::Please paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS")
         raise AMLConfigurationException("Incorrect or poorly formed output from azure credentials saved in AZURE_CREDENTIALS secret. See setup in https://github.com/Azure/aml-compute/blob/master/README.md")
 
-    tenant_id = azure_credentials['tenantId']
-    print(tenant_id)
-    sp = ServicePrincipalAuthentication(tenant_id='605f6d17-d10f-47bd-8145-8e5740e61669',service_principal_id='d62549cd-a593-4945-976e-ffa8f74f6d50',service_principal_password='eHRl7O-i_BDsc10pH.t3569mTO7MHKXpgm')
-    print(sp)
+    tenant_id       = azure_credentials['tenantId']
+    app_id          = azure_credentials['clientId']
+    app_secret      = azure_credentials['clientSecret']
+    subscription_id = azure_credentials['subscriptionId']
+    rm_endpoint     = azure_credentials['resourceManagerEndpointUrl']
+
+    print("::debug::Loading input values")
+    model_name = os.environ.get("INPUT_MODEL_NAME", default=None)
+    mv = os.environ.get("INPUT_MODEL_VERSION", default=None) 
+
+    print("::debug::Casting input values")
+    try:
+        model_version = int(mv)
+    except TypeError as exception:
+        print(f"::debug::Could not cast model version to int: {exception}")
+        model_version = None   
+
+    # Define target cloud
+    if rm_endpoint.startswith("https://management.usgovcloudapi.net"):
+        cloud = "AzureUSGovernment"
+    elif rm_endpoint.startswith("https://management.chinacloudapi.cn"):
+        cloud = "AzureChinaCloud"
+    else:
+        cloud = "AzureCloud"
+    
+
+    try:
+        sp = ServicePrincipalAuthentication(tenant_id=tenant_id,
+        service_principal_id=app_id,
+        service_principal_password=app_secret,
+        cloud=cloud)
+    except AuthenticationException as exception:
+        print(f"::error::Could not retrieve user token. Please paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS: {exception}")
+        raise AuthenticationException
+    
+    print("::debug::Loading Workspace values")
+    ws_path = os.environ.get("INPUT_WORKSPACE")
+    
+    ws =Workspace.from_config(path=ws_path,auth=sp)
+    print(ws)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
