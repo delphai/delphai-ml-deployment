@@ -3,10 +3,8 @@ description: "Deploy a registered model in your Azure Machine Learning Workspace
 author: "delpahi/devops/ahmedmahmo"
 inputs:
   azure_credentials:
-    description: "Azure service principle credencials "
+    description: "Paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS"
     required: true
-  
-
 
 branding:
   icon: "chevron-up"

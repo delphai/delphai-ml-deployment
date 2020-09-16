@@ -14,7 +14,7 @@ from msrest.exceptions import AuthenticationError
 from json import JSONDecodeError
 
 def main():
-     print("::debug::Loading azure credentials")
+    print("::debug::Loading azure credentials")
     azure_credentials = os.environ.get("INPUT_AZURE_CREDENTIALS", default="{}")
     try:
         azure_credentials = json.loads(azure_credentials)
