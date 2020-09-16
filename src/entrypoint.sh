@@ -2,4 +2,4 @@
 
 set -e
 
-python /src/deploy.py
+python /src/server.py
