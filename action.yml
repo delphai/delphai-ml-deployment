@@ -13,7 +13,7 @@ inputs:
   register:
     description: 'Register the model'
     required: true
-    
+
   azure_credentials:
     description: "Paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS"
     required: true
@@ -48,7 +48,7 @@ inputs:
   
   deployment_name:
     description: 'Provide a name for the deployment'
-    required: false
+    required: true
   replicas:
     description: 'Number of desired replicas'
     required: false
