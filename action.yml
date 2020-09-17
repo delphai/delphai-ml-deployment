@@ -2,6 +2,18 @@ name: "Azure Machine Learning Deploy Action"
 description: "Deploy a registered model in your Azure Machine Learning Workspace with this GitHub Action"
 author: "delpahi/devops/ahmedmahmo"
 inputs:
+  deploy:
+    description: 'Intiate the deployment Job'
+    required: true
+
+  train:
+    description: 'Train the model'
+    required: true
+  
+  register:
+    description: 'Register the model'
+    required: true
+    
   azure_credentials:
     description: "Paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS"
     required: true
@@ -34,6 +46,9 @@ inputs:
     description: 'Conda file or dependencies managment'
     required: false
   
+  deployment_name:
+    description: 'Provide a name for the deployment'
+    required: false
   replicas:
     description: 'Number of desired replicas'
     required: false

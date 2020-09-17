@@ -111,11 +111,11 @@ def main():
             entry_script= entry_file_path,
             runtime='python',
             conda_file=conda_ffile_path,
-            environment=envir
         )
     except:
         print('::debug:: Make sure conda.yml and entry.py are in the [src] directory')
     
+    print('::debug:: get namespace and replicas')
     replicas = os.environ.get('INPUT_REPLICAS',default=3)
     try:
         replicas = int(replicas)
@@ -125,40 +125,31 @@ def main():
     namespace= os.environ.get('INPUT_NAMESPACE')
     deployment_configration= AksWebservice.deploy_configuration(autoscale_enabled=False, num_replicas=replicas,namespace=namespace)
 
-    
-
+    deployment_name = os.environ.get('INPUT_DEPLOYMENT_NAME',default=model_name.replace("_","-"))
     # Deploying model
     print("::debug::Deploying model")
-    
-    service = Model.deploy(
-        workspace=ws,
-        name=model_name.replace("_","-"),
-        models=[model],
-        inference_config=InferenceConfig,
-        deployment_config=deployment_configration,
-        deployment_target=deployment_target,
-        overwrite=True)
+    try:
+        service = Model.deploy(
+                workspace=ws,
+                name=deployment_name,
+                models=[model],
+                inference_config=inference_config,
+                deployment_config=deployment_config,
+                deployment_target=deployment_target,
+                overwrite=True
+            )
+        service.wait_for_deployment(show_output=True)
+    except WebserviceException as exception:
+        print(f"::error::Model deployment failed with exception: {exception}")
+        service_logs = service.get_logs()
+        raise AMLDeploymentException(f"Model deployment failed logs: {service_logs} \nexception: {exception}")
 
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        # Checking status of service
+    print("::debug::Checking status of service")
+    if service.state != "Healthy":
+        service_logs = service.get_logs()
+        print(f"::error::Model deployment failed with state '{service.state}': {service_logs}")
+        raise AMLDeploymentException(f"Model deployment failed with state '{service.state}': {service_logs}")
 
 
 if __name__ == "__main__":
