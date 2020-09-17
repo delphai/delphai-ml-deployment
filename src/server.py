@@ -134,7 +134,7 @@ def main():
                 name=deployment_name,
                 models=[model],
                 inference_config=inference_config,
-                deployment_config=deployment_config,
+                deployment_config=deployment_configration,
                 deployment_target=deployment_target,
                 overwrite=True
             )
