@@ -38,6 +38,10 @@ inputs:
     description: 'Compute Target'
     required: true
   
+  source_dir:
+    description: 'Source Directory'
+    required: false
+    
   entry_file:
     description: 'File'
     required: false

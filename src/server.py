@@ -98,12 +98,14 @@ def main():
         deployment_target = None
 
     # Loading entry and conda file
+    source = os.environ.get("INPUT_SOURCE_DIR", default='src')
+
     print("::debug::Loading entry_file & Conda file")
     entry_file = os.environ.get("INPUT_ENTRY_FILE", default="entry.py")
-    entry_file_path = os.path.join("src", entry_file)
+    entry_file_path = os.path.join(source, entry_file)
     
     conda_file = os.environ.get("INPUT_CONDA_FILE", default="conda.yml")
-    conda_ffile_path = os.path.join("src", conda_file)
+    conda_ffile_path = os.path.join(source, conda_file)
 
     envir= Environment(name=model_name.replace("_","-"))
     try:
