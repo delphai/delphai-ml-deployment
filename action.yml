@@ -40,14 +40,17 @@ inputs:
   
   source_dir:
     description: 'Source Directory'
+    default: 'src'
     required: false
     
   entry_file:
     description: 'File'
+    default: 'entry.py'
     required: false
 
   conda_file:
     description: 'Conda file or dependencies managment'
+    default: 'conda.yml'
     required: false
   
   deployment_name:
