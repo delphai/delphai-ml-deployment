@@ -109,6 +109,7 @@ def main():
     
     inference_configration = InferenceConfig(
             entry_script= entry_file_path,
+            runtime='python',
             conda_file=conda_ffile_path
         )
     
