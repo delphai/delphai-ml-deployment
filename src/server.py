@@ -106,14 +106,13 @@ def main():
     
     conda_file = os.environ.get("INPUT_CONDA_FILE", default="conda.yml")
     conda_ffile_path = os.path.join(source, conda_file)
-    try:
-        inference_configration = InferenceConfig(
+    
+    inference_configration = InferenceConfig(
             entry_script= entry_file_path,
-            runtime='python',
-            conda_file=conda_ffile_path,
+            conda_file=conda_ffile_path
         )
-    except:
-        print('::debug:: Make sure conda.yml and entry.py are in the [src] directory')
+    
+        #print('::debug:: Make sure conda.yml and entry.py are in the [src] directory')
     
     print('::debug:: get namespace and replicas')
     replicas = os.environ.get('INPUT_REPLICAS',default=3)
