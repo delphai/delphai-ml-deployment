@@ -2,3 +2,4 @@ env.py
 conda.yml
 entry.py
 test.py
+creds.json

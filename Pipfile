@@ -17,6 +17,10 @@ pylint = "*"
 [packages]
 azureml-sdk = "*"
 azureml-core = "*"
+azure-mgmt-resource = "2.0"
+azure-mgmt-network = "2.2"
+azure-mgmt-compute = "4.3"
+haikunator = "*"
 
 [requires]
 python_version = "3.8"

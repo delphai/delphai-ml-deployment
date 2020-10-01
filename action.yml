@@ -63,6 +63,16 @@ inputs:
   namespace:
     description: 'Kubernetes namespace'
     required: true
+  
+  override:
+    description : 'Override old deployments'
+    required: false
+    default: 'yes'
+  
+  tests:
+    description: 'Test deployment'
+    required: false
+    default: 'true'
     
 branding:
   icon: "chevron-up"
