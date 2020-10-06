@@ -3,3 +3,6 @@ conda.yml
 entry.py
 test.py
 creds.json
+__pycache__
+.terraform
+*.tfvars

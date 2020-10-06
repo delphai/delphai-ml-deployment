@@ -17,10 +17,13 @@ pylint = "*"
 [packages]
 azureml-sdk = "*"
 azureml-core = "*"
-azure-mgmt-resource = "2.0"
-azure-mgmt-network = "2.2"
-azure-mgmt-compute = "4.3"
+azure-identity="*"
+azure-mgmt-resource = "15.0.0"
+azure-mgmt-network = "16.0.0"
+azure-mgmt-compute = "17.0.0"
 haikunator = "*"
+ssh-python = "*"
+paramiko = "*"
 
 [requires]
 python_version = "3.8"
