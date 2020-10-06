@@ -139,7 +139,7 @@ resource "azurerm_linux_virtual_machine" "main" {
         
     admin_ssh_key {
         username       = "devops"
-        public_key     = file("~/.ssh/id_rsa.pub")
+        public_key     = file("/root/.ssh/id_rsa.pub")
     }
 
     boot_diagnostics {
@@ -150,7 +150,6 @@ resource "azurerm_linux_virtual_machine" "main" {
         environment = "common"
     }
 
-    
 }
 
 resource "null_resource" "setup" {
@@ -158,11 +157,11 @@ resource "null_resource" "setup" {
     connection {
     type        = "ssh"
     user        = "devops"
-    private_key = file("~/.ssh/id_rsa")
+    private_key = file("/root/.ssh/id_rsa")
     host        = azurerm_public_ip.main.ip_address
   }
     provisioner "file" {
-        source      = "../../shell/script.sh"
+        source      = "/app/shell/script.sh"
         destination = "/tmp/script.sh"
    }
 

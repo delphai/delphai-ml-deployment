@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-cd infrastructure/main
+cd /app/infrastructure/main
 terraform destroy -auto-approve
