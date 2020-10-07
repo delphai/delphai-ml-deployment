@@ -4,9 +4,9 @@ from deploy import deploy
 from json import JSONDecodeError
 
 def main():
-    train = os.environ.get('INPUT_TRAIN', default=False) 
-    deploy= os.environ.get('INPUT_DEPLOY',default=False) 
-    
+    train = os.environ.get('INPUT_TRAIN', default='no') 
+    deploy= os.environ.get('INPUT_DEPLOY',default='no') 
+
     azure_credentials_ml     = os.environ.get("INPUT_AZURE_CREDENTIALS_ML", default={})
     azure_credentials_ml     = json.loads(azure_credentials_ml)
     azure_credentials_common = os.environ.get("INPUT_AZURE_CREDENTIALS_COMMON", default={})
@@ -30,12 +30,12 @@ def main():
 
     repo = os.environ.get('REPOSITORY_NAME')
     
-    if train == True:
+    if train == 'yes':
         os.system(f'/app/shell/deploy.sh {tenant_id_ml} {app_id_ml} {app_secret_ml} {subscription_id_ml} {repo}')
         os.system('/app/shell/destroy.sh')
         
-    # if deploy == True:
-    #     deploy(azure_credentials_ml)
+    if deploy == 'yes':
+        deploy(azure_credentials_ml)
     
 def get_local_common_creds():
     with open('creds.json') as json_file:
