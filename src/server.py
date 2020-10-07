@@ -7,8 +7,11 @@ def main():
     train = os.environ.get('INPUT_TRAIN', default=False) 
     deploy= os.environ.get('INPUT_DEPLOY',default=False) 
 
-    azure_credentials_ml     = os.environ.get("INPUT_AZURE_CREDENTIALS_ML", default={})
-    azure_credentials_common = os.environ.get("INPUT_AZURE_CREDENTIALS_COMMON", default={})
+    acm     = os.environ.get("INPUT_AZURE_CREDENTIALS_ML", default={})
+    azure_credentials_ml     = json.load(acm)
+    acc = os.environ.get("INPUT_AZURE_CREDENTIALS_COMMON", default={})
+    azure_credentials_common = json.load(acc)
+    
     print(azure_credentials_common)
     tenant_id_common       = azure_credentials_common['tenantId']
     app_id_common          = azure_credentials_common['clientId']
