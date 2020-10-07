@@ -10,14 +10,8 @@ from msrest.exceptions import AuthenticationError
 from json import JSONDecodeError
 
 def register(model_path:str):
-    # Load credentials 
-    print("::debug::Loading azure credentials")
-    azure_credentials = os.environ.get("INPUT_AZURE_CREDENTIALS", default="{}")
-    try:
-        azure_credentials = json.loads(azure_credentials)
-    except JSONDecodeError:
-        print("::error::Please paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS")
-        raise AMLConfigurationException("Incorrect or poorly formed output from azure credentials saved in AZURE_CREDENTIALS secret. See setup in https://github.com/Azure/aml-compute/blob/master/README.md")
+    with open('register/creds.json') as json_file:
+        azure_credentials = json.load(json_file)
     
     #destribute credentials over variables
     tenant_id       = azure_credentials['tenantId']
@@ -28,8 +22,8 @@ def register(model_path:str):
 
     #Load model name and model version
     print("::debug::Loading input values")
-    model_name = os.environ.get("INPUT_MODEL_NAME", default=None)
-    mv = os.environ.get("INPUT_MODEL_VERSION", default=None) 
+    model_name = "dummy"
+    mv = "1"
 
     #convert into int
     print("::debug::Casting input values")
@@ -39,13 +33,8 @@ def register(model_path:str):
         print(f"::debug::Could not cast model version to int: {exception}")
         model_version = None   
 
-    # Define target cloud
-    if rm_endpoint.startswith("https://management.usgovcloudapi.net"):
-        cloud = "AzureUSGovernment"
-    elif rm_endpoint.startswith("https://management.chinacloudapi.cn"):
-        cloud = "AzureChinaCloud"
-    else:
-        cloud = "AzureCloud"
+    
+    cloud = "AzureCloud"
     
     # Authenticate Azure
     try:
@@ -59,8 +48,8 @@ def register(model_path:str):
     
     #Load workspace and resource group
     print("::debug::Loading Workspace values")
-    ws_path        = os.environ.get("INPUT_WORKSPACE")
-    resource_group = os.environ.get("INPUT_RESOURCE_GROUP")
+    ws_path        = "azureml-delphai-development"
+    resource_group = "machine-learning"
     
     #Load Azure workspace
     try:
@@ -73,7 +62,7 @@ def register(model_path:str):
         model = Model.register(
                 workspace=ws,
                 model_path=model_path,
-                model_name=parameters.get("model_name", default_model_name)[:32],
+                model_name=model_name,
                 tags="delphai"
             )
     except TypeError as exception:
