@@ -13,15 +13,7 @@ from adal.adal_error import AdalError
 from msrest.exceptions import AuthenticationError
 from json import JSONDecodeError
 
-def deploy():
-    # Load credentials 
-    print("::debug::Loading azure credentials")
-    azure_credentials = os.environ.get("INPUT_AZURE_CREDENTIALS", default="{}")
-    try:
-        azure_credentials = json.loads(azure_credentials)
-    except JSONDecodeError:
-        print("::error::Please paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS")
-        raise AMLConfigurationException("Incorrect or poorly formed output from azure credentials saved in AZURE_CREDENTIALS secret. See setup in https://github.com/Azure/aml-compute/blob/master/README.md")
+def deploy(azure_credentials:json):
     
     #destribute credentials over variables
     tenant_id       = azure_credentials['tenantId']

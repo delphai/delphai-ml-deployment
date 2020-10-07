@@ -11,7 +11,8 @@ terraform --version
 sleep 2
 echo 'Start Deploying'
 terraform init
-terraform apply -auto-approve
+terraform apply -auto-approve \
+-var 
 echo 'Wait and tey again'
 sleep 5
 terraform apply -auto-approve

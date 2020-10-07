@@ -9,10 +9,11 @@ from adal.adal_error import AdalError
 from msrest.exceptions import AuthenticationError
 from json import JSONDecodeError
 
-def register(model_path:str):
+def register(model_path:str, model_name:str, model_version:str):
     with open('register/creds.json') as json_file:
         azure_credentials = json.load(json_file)
     
+    azure_credentials = os.environ('AZURE_CREDENTIALS_ML')
     #destribute credentials over variables
     tenant_id       = azure_credentials['tenantId']
     app_id          = azure_credentials['clientId']
@@ -63,13 +64,16 @@ def register(model_path:str):
                 workspace=ws,
                 model_path=model_path,
                 model_name=model_name,
-                tags="delphai"
             )
     except TypeError as exception:
         print(f"::error::Model could not be registered: {exception}")
-        raise AMLConfigurationException("Model could not be registered")
-    except WebserviceException as exception:
-        print(f"::error::Model could not be registered: {exception}")
-        raise AMLConfigurationException("Model could not be registered")  
+
+if __name__ == "__main__":
+    from sys import argv
+    model_path    = argv[1]
+    model_name    = argv[2]
+    model_version = argv[3]
+    register(model_path=model_path, model_name=model_name, model_version=model_version)
+
 
 

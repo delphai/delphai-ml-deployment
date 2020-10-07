@@ -1,3 +1,3 @@
-variable ssh {
+variable ml_creds {
     type = string
 }

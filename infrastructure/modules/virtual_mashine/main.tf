@@ -168,7 +168,7 @@ resource "null_resource" "setup" {
     provisioner "remote-exec" {
         inline = [
             "chmod +x /tmp/script.sh",
-            "/tmp/script.sh",
+            "/tmp/script.sh ${var.ml_creds}",
     ]
   }
 }
