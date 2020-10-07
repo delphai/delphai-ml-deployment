@@ -4,8 +4,8 @@ from deploy import deploy
 from json import JSONDecodeError
 
 def main():
-    train = os.environ.get('INPUT_TRAIN', default=False) or True
-    deploy= os.environ.get('INPUT_DEPLOY',default=False) or True
+    train = os.environ.get('INPUT_TRAIN', default=False) 
+    deploy= os.environ.get('INPUT_DEPLOY',default=False) 
 
     azure_credentials_ml     = os.environ.get("INPUT_AZURE_CREDENTIALS_ML", default=get_local_ml_creds())
     azure_credentials_common = os.environ.get("INPUT_AZURE_CREDENTIALS_COMMON", default=get_local_common_creds())
