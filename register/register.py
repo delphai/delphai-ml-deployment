@@ -17,8 +17,8 @@ def register(model_path:str, model_name:str, model_version:str):
 
     #Load model name and model version
     print("::debug::Loading input values")
-    model_name = "dummy"
-    mv = "1"
+    model_name = model_name
+    mv = model_version
 
     #convert into int
     print("::debug::Casting input values")
@@ -43,7 +43,7 @@ def register(model_path:str, model_name:str, model_version:str):
     
     #Load workspace and resource group
     print("::debug::Loading Workspace values")
-    ws_path        = "azureml-delphai-development"
+    ws_path        = "delphai-development"
     resource_group = "machine-learning"
     
     #Load Azure workspace

@@ -3,10 +3,10 @@
 #1 Inject ml secrets into 
 echo 'Injecting Secrets into the Virtual Mashine'
 sleep 1
-export TENANT_ID       = $1
-export APP_ID          = $2
-export SECRET_ID       = $3
-export SUBSCRIPTION_ID = $4
+export TENANT_ID=$1
+export APP_ID=$2
+export SECRET_ID=$3
+export SUBSCRIPTION_ID=$4
 
 echo 'Installing Virtual Mashine dependencies'
 sleep 1
