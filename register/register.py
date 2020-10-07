@@ -10,16 +10,10 @@ from msrest.exceptions import AuthenticationError
 from json import JSONDecodeError
 
 def register(model_path:str, model_name:str, model_version:str):
-    with open('register/creds.json') as json_file:
-        azure_credentials = json.load(json_file)
-    
-    azure_credentials = os.environ('AZURE_CREDENTIALS_ML')
-    #destribute credentials over variables
-    tenant_id       = azure_credentials['tenantId']
-    app_id          = azure_credentials['clientId']
-    app_secret      = azure_credentials['clientSecret']
-    subscription_id = azure_credentials['subscriptionId']
-    rm_endpoint     = azure_credentials['resourceManagerEndpointUrl']
+    tenant_id       = os.environ.get('TENANT_ID')
+    app_id          = os.environ.get('APP_ID')
+    app_secret      = os.environ.get('SECRET_ID')
+    subscription_id = os.environ.get('SUBSCRIPTION_ID')
 
     #Load model name and model version
     print("::debug::Loading input values")

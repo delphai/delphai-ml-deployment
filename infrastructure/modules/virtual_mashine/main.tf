@@ -1,6 +1,6 @@
 # Create a resource group if it doesn't exist
 resource "azurerm_resource_group" "main" {
-    name     = "delphai-common-vms"
+    name     = "delphai-common-vm"
     location = "westeurope"
 
     tags = {
@@ -168,7 +168,7 @@ resource "null_resource" "setup" {
     provisioner "remote-exec" {
         inline = [
             "chmod +x /tmp/script.sh",
-            "/tmp/script.sh ${var.ml_creds}",
+            "/tmp/script.sh ${var.tenant} ${var.app_id} ${var.app_secret} ${var.subscription_id}",
     ]
   }
 }
