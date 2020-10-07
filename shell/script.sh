@@ -30,6 +30,6 @@ cd register
 wget https://raw.githubusercontent.com/delphai/delphai-ml-deployment/master/register/requirments.txt
 wget https://raw.githubusercontent.com/delphai/delphai-ml-deployment/master/register/register.py
 python3 -m pip install -r requirments.txt
-python3 register.py /home/devops/dummy-trainer/trained dummy 1
+python3 register.py /home/devops/$5/trained $5 1
 
 

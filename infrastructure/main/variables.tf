@@ -13,3 +13,7 @@ variable app_secret {
 variable subscription_id {
     type = string
 }
+
+variable repo_name {
+    type = string
+}
