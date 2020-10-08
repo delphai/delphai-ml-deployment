@@ -19,4 +19,5 @@ module "virtual_mashine" {
   app_secret      = var.app_secret
   subscription_id = var.subscription_id
   repo_name       = var.repo_name
+  model_version   = var.model_version
 }
