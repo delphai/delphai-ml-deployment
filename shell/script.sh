@@ -22,7 +22,7 @@ echo 'Installing Model dependencies'
 python3 -m pip install -r requirments.txt
 echo 'Start Training'
 sleep 1
-python3 train.py
+python3 src/train.py
 
 echo 'Start Registration Model'
 wget --quiet --show-progress --timestamping https://raw.githubusercontent.com/delphai/delphai-ml-deployment/master/register/register.sh

@@ -25,6 +25,18 @@ The register directory will be also cloned in the vm after and gets executed to 
 **Note**
 
 The wished training model must in in a directory called [model] in the root of the repo.
+```
+.
+├── model
+│   └── dont_delete.txt
+├── register.sh
+└── src
+    ├── conda.yml
+    ├── entry.py
+    ├── register.py
+    └── train.py
+```
+
 
 **Deploying**
 
