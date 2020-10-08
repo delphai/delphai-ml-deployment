@@ -25,12 +25,10 @@ sleep 1
 python3 train.py
 
 echo 'Start Registration Model'
-cd ..
-mkdir register
-cd register
-wget https://raw.githubusercontent.com/delphai/delphai-ml-deployment/master/register/requirments.txt
-wget https://raw.githubusercontent.com/delphai/delphai-ml-deployment/master/register/register.py
-python3 -m pip install -r requirments.txt
-python3 register.py $PWD/model $5 $6
+wget --quiet --show-progress --timestamping https://raw.githubusercontent.com/delphai/delphai-ml-deployment/master/register/register.sh
+wget --quiet --show-progress --timestamping https://raw.githubusercontent.com/delphai/delphai-ml-deployment/master/register/register.py
+chmod +x register.sh
+./register.sh
+python3 register.py model $5 $6
 
 

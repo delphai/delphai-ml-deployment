@@ -32,7 +32,7 @@ def main():
         os.system('/app/shell/destroy.sh')
         
     if deploy == 'yes':
-        deploy(azure_credentials_ml)
+        deploy()
     
 if __name__ == "__main__":
     main()
