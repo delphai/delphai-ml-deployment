@@ -6,10 +6,10 @@ from json import JSONDecodeError
 def main():
     azure_credentials_ml     = os.environ.get("INPUT_AZURE_CREDENTIALS_ML", default={})
     azure_credentials_common = os.environ.get("INPUT_AZURE_CREDENTIALS_COMMON", default={})
-    train                    = os.environ.get('INPUT_TRAIN', default='no') 
-    deploy                   = os.environ.get('INPUT_DEPLOY',default='no') 
+    train_action             = os.environ.get('INPUT_TRAIN', default='no') 
+    deploy_action            = os.environ.get('INPUT_DEPLOY',default='no') 
     repo                     = os.environ.get('REPOSITORY_NAME')
-    model_version                       = os.environ.get("INPUT_MODEL_VERSION", default=None) 
+    model_version            = os.environ.get("INPUT_MODEL_VERSION", default=None) 
 
     try: 
         azure_credentials_ml     = json.loads(azure_credentials_ml)
@@ -27,11 +27,11 @@ def main():
     os.environ['ARM_SUBSCRIPTION_ID'] = azure_credentials_common['subscriptionId']
     os.environ['ARM_TENANT_ID']       = azure_credentials_common['tenantId']
 
-    if train == 'yes':
+    if train_action == 'yes':
         os.system(f'/app/shell/deploy.sh {tenant_id_ml} {app_id_ml} {app_secret_ml} {subscription_id_ml} {repo} {model_version}')
-        #os.system('/app/shell/destroy.sh')
+        os.system('/app/shell/destroy.sh')
         
-    if deploy == 'yes':
+    if train_action == 'yes':
         deploy()
     
 if __name__ == "__main__":

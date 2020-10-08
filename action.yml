@@ -12,7 +12,7 @@ inputs:
   
   register:
     description: 'Register the model'
-    required: true
+    required: false
 
   azure_credentials_ml:
     description: "Paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS"
