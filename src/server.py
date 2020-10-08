@@ -29,7 +29,7 @@ def main():
 
     if train == 'yes':
         os.system(f'/app/shell/deploy.sh {tenant_id_ml} {app_id_ml} {app_secret_ml} {subscription_id_ml} {repo} {model_version}')
-        os.system('/app/shell/destroy.sh')
+        #os.system('/app/shell/destroy.sh')
         
     if deploy == 'yes':
         deploy()

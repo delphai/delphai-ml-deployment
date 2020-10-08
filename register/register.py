@@ -10,10 +10,11 @@ from msrest.exceptions import AuthenticationError
 from json import JSONDecodeError
 
 def register(model_path:str, model_name:str, model_version:str):
-    tenant_id       = os.environ.get('TENANT_ID')
-    app_id          = os.environ.get('APP_ID')
-    app_secret      = os.environ.get('SECRET_ID')
-    subscription_id = os.environ.get('SUBSCRIPTION_ID')
+    tenant_id       = os.environ.get('TENANT_ID') 
+    app_id          = os.environ.get('APP_ID') 
+    app_secret      = os.environ.get('SECRET_ID') 
+    subscription_id = os.environ.get('SUBSCRIPTION_ID') 
+
     #Load model name and model version
     print("::debug::Loading input values")
     model_name = model_name
