@@ -9,6 +9,7 @@ def main():
     train                    = os.environ.get('INPUT_TRAIN', default='no') 
     deploy                   = os.environ.get('INPUT_DEPLOY',default='no') 
     repo                     = os.environ.get('REPOSITORY_NAME')
+    model_version                       = os.environ.get("INPUT_MODEL_VERSION", default=None) 
 
     try: 
         azure_credentials_ml     = json.loads(azure_credentials_ml)
@@ -27,7 +28,7 @@ def main():
     os.environ['ARM_TENANT_ID']       = azure_credentials_common['tenantId']
 
     if train == 'yes':
-        os.system(f'/app/shell/deploy.sh {tenant_id_ml} {app_id_ml} {app_secret_ml} {subscription_id_ml} {repo}')
+        os.system(f'/app/shell/deploy.sh {tenant_id_ml} {app_id_ml} {app_secret_ml} {subscription_id_ml} {repo} {model_version}')
         os.system('/app/shell/destroy.sh')
         
     if deploy == 'yes':

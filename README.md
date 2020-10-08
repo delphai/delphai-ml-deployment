@@ -22,6 +22,10 @@ The Model will be cloned in the vm and downloads with it the training data from 
 Training runs in the vm until it finishes.
 The register directory will be also cloned in the vm after and gets executed to register the model in Azure 
 
+**Note**
+
+The wished training model must in in a directory called [model] in the root of the repo.
+
 **Deploying**
 
 Deployment will happen to delphai's Clusters through src/train.py **only if train was marked as yes**.

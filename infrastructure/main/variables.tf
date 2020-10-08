@@ -17,3 +17,7 @@ variable subscription_id {
 variable repo_name {
     type = string
 }
+
+variable model_version {
+    type = string
+}
