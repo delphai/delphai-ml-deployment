@@ -17,6 +17,7 @@ echo 'Cloning the Repo into the vm'
 sleep 1
 git clone https://github.com/delphai/$5.git
 cd dummy-trainer
+PWD=$(pwd)
 echo 'Installing Model dependencies'
 python3 -m pip install -r requirments.txt
 echo 'Start Training'
@@ -30,6 +31,6 @@ cd register
 wget https://raw.githubusercontent.com/delphai/delphai-ml-deployment/master/register/requirments.txt
 wget https://raw.githubusercontent.com/delphai/delphai-ml-deployment/master/register/register.py
 python3 -m pip install -r requirments.txt
-python3 register.py /home/devops/$5/model $5 $6
+python3 register.py $PWD/model $5 $6
 
 
