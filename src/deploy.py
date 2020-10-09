@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import time
 import importlib
 
 from azureml.core import Workspace, Model, ContainerRegistry
@@ -157,9 +158,13 @@ def deploy():
     elif tests == 'no':
         tests = False
 
+    # Give Time to Ku8 to create PODS 
+    time.sleep(60)
+
     if service.state != "Healthy":
-        service_logs = service.get_logs()
-        print(f"::error::Model deployment failed with state '{service.state}': {service_logs}")
-        raise AMLDeploymentException(f"Model deployment failed with state '{service.state}': {service_logs}")
+        try:
+            service_logs = service.get_logs()
+        except:
+            print(f"::error::Model deployment Might be failied, Please check in lens for your deployments")
 
 
