@@ -33,7 +33,6 @@ The wished training model must in in a directory called [model] in the root of t
 └── src
     ├── conda.yml
     ├── entry.py
-    ├── register.py
     └── train.py
 ```
 
@@ -65,7 +64,7 @@ jobs:
       shell: bash
 
     - name: deploy and train 
-      uses: delphai/delphai-ml-deployment@<VERSION OR BRANCH>
+      uses: delphai/delphai-ml-deployment@master
       with:
         # Choose Jobs 
         train            : 'yes' or 'no'
