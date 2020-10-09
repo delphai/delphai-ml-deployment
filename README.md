@@ -28,7 +28,7 @@ The wished training model must in in a directory called [model] in the root of t
 ```
 .
 ├── model
-│   └── dont_delete.txt
+│   └── .none
 ├── register.sh
 └── src
     ├── conda.yml
@@ -40,7 +40,7 @@ The wished training model must in in a directory called [model] in the root of t
 
 **Deploying**
 
-Deployment will happen to delphai's Clusters through src/train.py **only if train was marked as yes**.
+Deploying the registed model 
 
 ## How to use this pipeline 
 
@@ -79,8 +79,8 @@ jobs:
         entry_file       : "entry.py"
         conda_file       : "conda.yml"
         #source_dir       : "<if your source file is not src in the root >"
-        # DevOps 
-        azure_credentials: ${{ secrets.AZURE_CREDENTIALS_ML }}
+        azure_credentials_ml     : ${{ secrets.AZURE_CREDENTIALS_ML }}
+        azure_credentials_common : ${{ secrets.AZURE_CREDENTIALS_COMMON }}
         namespace        : "azureml-delphai-development"
         resource_group   : "machine-learning"
         workspace        : "delphai-development"
@@ -90,17 +90,4 @@ jobs:
 
 
 ## Contributing
-<!--- If your README is long or you have some specific process or steps you want contributors to follow, consider creating a separate CONTRIBUTING.md file--->
-To contribute, follow these steps:
-
-
-1. Create a branch: `git checkout -b <branch_name>`.
-2. Create the pull request.
-
-Alternatively see the GitHub documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
-
-## Contributors
-
-Thanks to the following people who have contributed to this project:
-
-* [@ahmedmahmo](https://github.com/ahmedmahmo) 📖
+Please create a branch and pull request.
