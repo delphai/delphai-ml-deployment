@@ -27,11 +27,13 @@ def main():
     os.environ['ARM_SUBSCRIPTION_ID'] = azure_credentials_common['subscriptionId']
     os.environ['ARM_TENANT_ID']       = azure_credentials_common['tenantId']
 
+    print(f'::debug::Train Action is {train_action}')
     if train_action == 'yes':
         os.system(f'/app/shell/deploy.sh {tenant_id_ml} {app_id_ml} {app_secret_ml} {subscription_id_ml} {repo} {model_version}')
         os.system('/app/shell/destroy.sh')
-        
-    if train_action == 'yes':
+
+    print(f'::debug::Deploy Action is {deploy_action}')
+    if deploy_action == 'yes':
         deploy()
     
 if __name__ == "__main__":
