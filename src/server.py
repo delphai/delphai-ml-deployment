@@ -6,8 +6,8 @@ from json import JSONDecodeError
 def main():
     azure_credentials_ml     = os.environ.get("INPUT_AZURE_CREDENTIALS_ML", default={})
     azure_credentials_common = os.environ.get("INPUT_AZURE_CREDENTIALS_COMMON", default={})
-    train_action             = os.environ.get('INPUT_TRAIN', default='no') 
-    deploy_action            = os.environ.get('INPUT_DEPLOY',default='no') 
+    train_action             = os.environ.get('INPUT_TRAIN') 
+    deploy_action            = os.environ.get('INPUT_DEPLOY') 
     repo                     = os.environ.get('REPOSITORY_NAME')
     model_version            = os.environ.get("INPUT_MODEL_VERSION", default=None) 
 
