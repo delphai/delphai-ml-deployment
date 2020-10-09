@@ -65,7 +65,7 @@ jobs:
       shell: bash
 
     - name: deploy and train 
-      uses: delphai/delphai-ml-deployment@<VERSION OR BRANCH>
+      uses: delphai/delphai-ml-deployment@master
       with:
         # Choose Jobs 
         train            : 'yes' or 'no'
