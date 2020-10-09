@@ -33,7 +33,6 @@ The wished training model must in in a directory called [model] in the root of t
 └── src
     ├── conda.yml
     ├── entry.py
-    ├── register.py
     └── train.py
 ```
 
