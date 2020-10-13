@@ -168,7 +168,7 @@ resource "null_resource" "setup" {
     provisioner "remote-exec" {
         inline = [
             "chmod +x /tmp/script.sh",
-            "/tmp/script.sh ${var.tenant} ${var.app_id} ${var.app_secret} ${var.subscription_id} ${var.repo_name} ${var.model_version}",
+            "/tmp/script.sh ${var.tenant} ${var.app_id} ${var.app_secret} ${var.subscription_id} ${var.repo_name} ${var.model_version} ${var.github_password}",
     ]
   }
 }

@@ -20,4 +20,5 @@ module "virtual_mashine" {
   subscription_id = var.subscription_id
   repo_name       = var.repo_name
   model_version   = var.model_version
+  github_password = var.github_password
 }

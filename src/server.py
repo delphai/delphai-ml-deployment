@@ -27,9 +27,11 @@ def main():
     os.environ['ARM_SUBSCRIPTION_ID'] = azure_credentials_common['subscriptionId']
     os.environ['ARM_TENANT_ID']       = azure_credentials_common['tenantId']
 
+    github_password = os.environ.get('INPUT_GITHUB_PASSWORD')
+
     print(f'::debug::Train Action is {train_action}')
     if train_action == 'yes':
-        os.system(f'/app/shell/deploy.sh {tenant_id_ml} {app_id_ml} {app_secret_ml} {subscription_id_ml} {repo} {model_version}')
+        os.system(f'/app/shell/deploy.sh {tenant_id_ml} {app_id_ml} {app_secret_ml} {subscription_id_ml} {repo} {model_version} {github_password}')
         os.system('/app/shell/destroy.sh')
 
     print(f'::debug::Deploy Action is {deploy_action}')

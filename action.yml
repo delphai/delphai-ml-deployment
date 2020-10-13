@@ -21,6 +21,10 @@ inputs:
   azure_credentials_common:
     description: "Paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS"
     required: true
+  
+  github_password:
+    description: 'GitHub Password'
+    required: true
 
   model_name:
     description: 'Model name'
