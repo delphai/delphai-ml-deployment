@@ -169,7 +169,7 @@ def deploy():
 
 
 def create_namespace(app_id:str, app_secret:str, tenant:str, namespace:str):
-    url = https://api.delphai.red/namespacer-master/namespace
+    url = 'https://api.delphai.red/namespacer-master/namespace'
     body = {
     "app_id" : app_id,
     "app_secret":app_secret,
