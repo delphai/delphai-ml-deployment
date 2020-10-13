@@ -12,15 +12,15 @@ def main():
     model_version            = os.environ.get("INPUT_MODEL_VERSION", default=None) 
 
     try: 
-        azure_credentials_ml     = json.loads(azure_credentials_ml)
+        #azure_credentials_ml     = json.loads(azure_credentials_ml)
         azure_credentials_common = json.loads(azure_credentials_common)
     except JSONDecodeError:
         print("::error::Please paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS") 
 
-    tenant_id_ml       = azure_credentials_ml['tenantId']
-    app_id_ml          = azure_credentials_ml['clientId']
-    app_secret_ml      = azure_credentials_ml['clientSecret']
-    subscription_id_ml = azure_credentials_ml['subscriptionId']
+    # tenant_id_ml       = azure_credentials_ml['tenantId']
+    # app_id_ml          = azure_credentials_ml['clientId']
+    # app_secret_ml      = azure_credentials_ml['clientSecret']
+    # subscription_id_ml = azure_credentials_ml['subscriptionId']
 
     os.environ['ARM_CLIENT_ID']       = azure_credentials_common['clientId']
     os.environ['ARM_CLIENT_SECRET']   = azure_credentials_common['clientSecret']
