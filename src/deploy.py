@@ -1,9 +1,8 @@
 import os
 import sys
 import json
-import time
-import importlib
 
+import requests
 from azureml.core import Workspace, Model, ContainerRegistry
 from azureml.core.compute import ComputeTarget, AksCompute
 from azureml.core.model import InferenceConfig, Environment
@@ -17,7 +16,7 @@ from json import JSONDecodeError
 def deploy():
      # Load credentials 
     print("::debug::Loading azure credentials")
-    azure_credentials = os.environ.get("INPUT_AZURE_CREDENTIALS_ML", default="{}")
+    azure_credentials = os.environ.get("INPUT_AZURE_CREDENTIALS_COMMON", default="{}")
     try:
         azure_credentials = json.loads(azure_credentials)
     except JSONDecodeError:
@@ -64,8 +63,8 @@ def deploy():
     
     #Load workspace and resource group
     print("::debug::Loading Workspace values")
-    ws_path        = os.environ.get("INPUT_WORKSPACE")
-    resource_group = os.environ.get("INPUT_RESOURCE_GROUP")
+    ws_path        = os.environ.get("INPUT_WORKSPACE", default='delphai-common-ml')
+    resource_group = os.environ.get("INPUT_RESOURCE_GROUP", default='tf-ml-workspace')
     
     #Load Azure workspace
     try:
@@ -91,7 +90,7 @@ def deploy():
     try:
         deployment_target = ComputeTarget(
             workspace=ws,
-            name=os.environ.get("INPUT_COMPUTE_TARGET")
+            name=os.environ.get("INPUT_COMPUTE_TARGET", default='delphai-common')
         )
     except ComputeTargetException:
         deployment_target = None
@@ -124,9 +123,10 @@ def deploy():
         print(f"::debug::Could not cast model version to int: {exception}")
         replicas = 3   
     namespace= os.environ.get('INPUT_NAMESPACE')
-    deployment_configration= AksWebservice.deploy_configuration(autoscale_enabled=False, num_replicas=replicas,namespace=namespace)
-
     deployment_name = os.environ.get('INPUT_DEPLOYMENT_NAME',default=model_name.replace("_","-"))
+    create_namespace(app_id=app_id, app_secret=app_secret, tenant=tenant_id,namespace=deployment_name)
+    deployment_configration= AksWebservice.deploy_configuration(autoscale_enabled=False, num_replicas=replicas,namespace=deployment_name)
+
     # Deploying model
     print("::debug::Deploying model")
     override = os.environ.get('INPUT_OVERRIDE')
@@ -167,4 +167,14 @@ def deploy():
         except:
             print(f"::error::Model deployment Might be failied, Please check in lens for your deployments")
 
+
+def create_namespace(app_id:str, app_secret:str, tenant:str, namespace:str):
+    url = https://api.delphai.red/namespacer-master/namespace
+    body = {
+    "app_id" : app_id,
+    "app_secret":app_secret,
+    "tenant_id": tenant,
+    "name": namespace
+            }
+    requests.post(url=url, json=body)
 

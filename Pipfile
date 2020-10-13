@@ -18,12 +18,7 @@ pylint = "*"
 azureml-sdk = "*"
 azureml-core = "*"
 azure-identity="*"
-azure-mgmt-resource = "15.0.0"
-azure-mgmt-network = "16.0.0"
-azure-mgmt-compute = "17.0.0"
-haikunator = "*"
-ssh-python = "*"
-paramiko = "*"
+requests = "*"
 
 [requires]
 python_version = "3.8"
