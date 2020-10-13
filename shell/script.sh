@@ -16,7 +16,7 @@ sudo apt install python3-pip -y
 echo 'Cloning the Repo into the vm'
 sleep 1
 git clone https://ahmedmahmo:$7@github.com/delphai/$5.git
-cd dummy-trainer
+cd $5
 PWD=$(pwd)
 echo 'Installing Model dependencies'
 python3 -m pip install -r requirments.txt
