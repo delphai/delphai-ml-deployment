@@ -19,16 +19,13 @@ git clone https://ahmedmahmo:$7@github.com/delphai/$5.git
 cd $5
 PWD=$(pwd)
 echo 'Installing Model dependencies'
-python3 -m pip install -r requirements.txt
-echo 'Start Training'
-sleep 1
-python3 src/train.py
-
-echo 'Start Registration Model'
+wget --quiet --show-progress --timestamping https://raw.githubusercontent.com/delphai/delphai-ml-deployment/master/register/dep.py
 wget --quiet --show-progress --timestamping https://raw.githubusercontent.com/delphai/delphai-ml-deployment/master/register/register.sh
 wget --quiet --show-progress --timestamping https://raw.githubusercontent.com/delphai/delphai-ml-deployment/master/register/register.py
 chmod +x register.sh
 ./register.sh
+python3 dep.py
+python3 src/train.py
 python3 register.py model $5 $6
 
 
