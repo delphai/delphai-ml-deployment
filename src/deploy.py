@@ -116,7 +116,7 @@ def deploy():
     except TypeError as exception:
         print(f"::debug::Could not cast model version to int: {exception}")
         replicas = 3   
-        
+
     deployment_name = os.environ.get('INPUT_DEPLOYMENT_NAME',default=model_name.replace("_","-"))
     create_namespace(app_id=app_id, app_secret=app_secret, tenant=tenant_id,namespace=deployment_name)
     deployment_configration= AksWebservice.deploy_configuration(autoscale_enabled=False, num_replicas=replicas,namespace=deployment_name)
@@ -143,14 +143,6 @@ def deploy():
         print(f"::error::Model deployment failed with exception: {exception}")
         service_logs = service.get_logs()
         raise AMLDeploymentException(f"Model deployment failed logs: {service_logs} \nexception: {exception}")
-
-        # Checking status of service
-    print("::debug::Checking status of service")
-    tests = os.environ.get('INPUT_TESTS')
-    if tests == 'yes':
-        tests = True
-    elif tests == 'no':
-        tests = False
 
     # Give Time to Ku8 to create PODS 
     time.sleep(60)
