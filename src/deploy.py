@@ -1,9 +1,8 @@
 import os
 import sys
 import json
-import time
-import importlib
 
+import requests
 from azureml.core import Workspace, Model, ContainerRegistry
 from azureml.core.compute import ComputeTarget, AksCompute
 from azureml.core.model import InferenceConfig, Environment
@@ -17,7 +16,7 @@ from json import JSONDecodeError
 def deploy():
      # Load credentials 
     print("::debug::Loading azure credentials")
-    azure_credentials = os.environ.get("INPUT_AZURE_CREDENTIALS_ML", default="{}")
+    azure_credentials = os.environ.get("INPUT_AZURE_CREDENTIALS_COMMON", default="{}")
     try:
         azure_credentials = json.loads(azure_credentials)
     except JSONDecodeError:
@@ -44,13 +43,7 @@ def deploy():
         print(f"::debug::Could not cast model version to int: {exception}")
         model_version = None   
 
-    # Define target cloud
-    if rm_endpoint.startswith("https://management.usgovcloudapi.net"):
-        cloud = "AzureUSGovernment"
-    elif rm_endpoint.startswith("https://management.chinacloudapi.cn"):
-        cloud = "AzureChinaCloud"
-    else:
-        cloud = "AzureCloud"
+    cloud = "AzureCloud"
     
     # Authenticate Azure
     try:
@@ -64,8 +57,8 @@ def deploy():
     
     #Load workspace and resource group
     print("::debug::Loading Workspace values")
-    ws_path        = os.environ.get("INPUT_WORKSPACE")
-    resource_group = os.environ.get("INPUT_RESOURCE_GROUP")
+    ws_path        = 'delphai-common-ml'
+    resource_group = 'tf-ml-workspace'
     
     #Load Azure workspace
     try:
@@ -91,7 +84,7 @@ def deploy():
     try:
         deployment_target = ComputeTarget(
             workspace=ws,
-            name=os.environ.get("INPUT_COMPUTE_TARGET")
+            name='delphai-common'
         )
     except ComputeTargetException:
         deployment_target = None
@@ -99,13 +92,13 @@ def deploy():
         deployment_target = None
 
     # Loading entry and conda file
-    source = os.environ.get("INPUT_SOURCE_DIR", default="src")
+    source = os.environ.get("INPUT_SOURCE_DIR") or 'src'
 
     print("::debug::Loading entry_file & Conda file")
-    entry_file = os.environ.get("INPUT_ENTRY_FILE", default="entry.py")
+    entry_file = os.environ.get("INPUT_ENTRY_FILE") or 'entry.py'
     entry_file_path = os.path.join(source, entry_file)
     
-    conda_file = os.environ.get("INPUT_CONDA_FILE", default="conda.yml")
+    conda_file = os.environ.get("INPUT_CONDA_FILE") or 'conda.yml'
     conda_ffile_path = os.path.join(source, conda_file)
     
     inference_configration = InferenceConfig(
@@ -117,16 +110,17 @@ def deploy():
         #print('::debug:: Make sure conda.yml and entry.py are in the [src] directory')
     
     print('::debug:: get namespace and replicas')
-    replicas = os.environ.get('INPUT_REPLICAS',default=3)
+    replicas = os.environ.get('INPUT_REPLICAS') or '3'
     try:
         replicas = int(replicas)
     except TypeError as exception:
         print(f"::debug::Could not cast model version to int: {exception}")
         replicas = 3   
-    namespace= os.environ.get('INPUT_NAMESPACE')
-    deployment_configration= AksWebservice.deploy_configuration(autoscale_enabled=False, num_replicas=replicas,namespace=namespace)
 
     deployment_name = os.environ.get('INPUT_DEPLOYMENT_NAME',default=model_name.replace("_","-"))
+    create_namespace(app_id=app_id, app_secret=app_secret, tenant=tenant_id,namespace=deployment_name)
+    deployment_configration= AksWebservice.deploy_configuration(autoscale_enabled=False, num_replicas=replicas,namespace=deployment_name)
+
     # Deploying model
     print("::debug::Deploying model")
     override = os.environ.get('INPUT_OVERRIDE')
@@ -150,14 +144,6 @@ def deploy():
         service_logs = service.get_logs()
         raise AMLDeploymentException(f"Model deployment failed logs: {service_logs} \nexception: {exception}")
 
-        # Checking status of service
-    print("::debug::Checking status of service")
-    tests = os.environ.get('INPUT_TESTS')
-    if tests == 'yes':
-        tests = True
-    elif tests == 'no':
-        tests = False
-
     # Give Time to Ku8 to create PODS 
     time.sleep(60)
 
@@ -167,4 +153,14 @@ def deploy():
         except:
             print(f"::error::Model deployment Might be failied, Please check in lens for your deployments")
 
+
+def create_namespace(app_id:str, app_secret:str, tenant:str, namespace:str):
+    url = 'https://api.delphai.red/namespacer-master/namespace'
+    body = {
+    "app_id" : app_id,
+    "app_secret":app_secret,
+    "tenant_id": tenant,
+    "name": namespace
+            }
+    requests.post(url=url, json=body)
 

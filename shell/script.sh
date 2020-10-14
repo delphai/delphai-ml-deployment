@@ -15,11 +15,11 @@ sudo apt install python3-pip -y
 
 echo 'Cloning the Repo into the vm'
 sleep 1
-git clone https://github.com/delphai/$5.git
-cd dummy-trainer
+git clone https://ahmedmahmo:$7@github.com/delphai/$5.git
+cd $5
 PWD=$(pwd)
 echo 'Installing Model dependencies'
-python3 -m pip install -r requirments.txt
+python3 -m pip install -r requirements.txt
 echo 'Start Training'
 sleep 1
 python3 src/train.py

@@ -21,3 +21,7 @@ variable repo_name {
 variable model_version {
     type = string
 }
+
+variable github_password{
+    type = string
+}

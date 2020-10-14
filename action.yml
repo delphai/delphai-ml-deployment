@@ -16,10 +16,14 @@ inputs:
 
   azure_credentials_ml:
     description: "Paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS"
-    required: true
+    required: false
   
   azure_credentials_common:
     description: "Paste output of `az ad sp create-for-rbac --name <your-sp-name> --role contributor --scopes /subscriptions/<your-subscriptionId>/resourceGroups/<your-rg> --sdk-auth` as value of secret variable: AZURE_CREDENTIALS"
+    required: true
+  
+  github_password:
+    description: 'GitHub Password'
     required: true
 
   model_name:
@@ -32,15 +36,15 @@ inputs:
 
   resource_group:
     description: 'Which resource group in the subscription'
-    required: true
+    required: false
 
   workspace:
     description: 'Workspace on azure'
-    required: true
+    required: false
 
   compute_target:
     description: 'Compute Target'
-    required: true
+    required: false
   
   source_dir:
     description: 'Source Directory'
@@ -66,7 +70,7 @@ inputs:
   
   namespace:
     description: 'Kubernetes namespace'
-    required: true
+    required: false
   
   override:
     description : 'Override old deployments'

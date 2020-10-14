@@ -43,8 +43,8 @@ def register(model_path:str, model_name:str, model_version:str):
     
     #Load workspace and resource group
     print("::debug::Loading Workspace values")
-    ws_path        = "delphai-development"
-    resource_group = "machine-learning"
+    ws_path        = "delphai-common-ml"
+    resource_group = "tf-ml-workspace"
     
     #Load Azure workspace
     try:
