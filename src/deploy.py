@@ -123,7 +123,7 @@ def deploy():
 
     # Deploying model
     print("::debug::Deploying model")
-    override = os.environ.get('INPUT_OVERRIDE')
+    override = os.environ.get('INPUT_OVERRIDE') or 'yes'
     if override == 'yes':
         override = True
     elif override == 'no':
