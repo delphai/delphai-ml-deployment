@@ -100,12 +100,10 @@ def deploy():
     
     conda_file = os.environ.get("INPUT_CONDA_FILE") or 'conda.yml'
     conda_ffile_path = os.path.join(source, conda_file)
-    
-    inference_configration = InferenceConfig(
-            entry_script= entry_file_path,
-            runtime='python',
-            conda_file=conda_ffile_path
-        )
+
+    env = Environment.from_conda_specification(name=model_name, file_path=conda_ffile_path)
+
+    inference_configration = InferenceConfig(entry_script= entry_file_path,environment=env)
     
         #print('::debug:: Make sure conda.yml and entry.py are in the [src] directory')
     
