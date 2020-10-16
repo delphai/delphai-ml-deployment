@@ -106,7 +106,10 @@ def deploy():
     except:
         print(f'::debug:: failed to create environment from {conda_ffile_path}')
 
-    inference_configration = InferenceConfig(entry_script= entry_file_path,environment=env)
+    try:
+        inference_configration = InferenceConfig(entry_script= entry_file_path,environment=env)
+    except:
+        print(f'::debug:: Failed to create InferenceConfig')
     
         #print('::debug:: Make sure conda.yml and entry.py are in the [src] directory')
     
@@ -143,7 +146,6 @@ def deploy():
     except WebserviceException as exception:
         print(f"::error::Model deployment failed with exception: {exception}")
         service_logs = service.get_logs()
-        raise AMLDeploymentException(f"Model deployment failed logs: {service_logs} \nexception: {exception}")
 
     # Give Time to Ku8 to create PODS 
     time.sleep(60)
