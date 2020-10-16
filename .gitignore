@@ -6,3 +6,5 @@ creds.json
 __pycache__
 .terraform
 *.tfvars
+creds.json
+model
