@@ -101,7 +101,10 @@ def deploy():
     conda_file = os.environ.get("INPUT_CONDA_FILE") or 'conda.yml'
     conda_ffile_path = os.path.join(source, conda_file)
 
-    env = Environment.from_conda_specification(name=model_name, file_path=conda_ffile_path)
+    try:
+        env = Environment.from_conda_specification(name=model_name, file_path=conda_ffile_path)
+    except:
+        print(f'::debug:: failed to create environment from {conda_ffile_path}')
 
     inference_configration = InferenceConfig(entry_script= entry_file_path,environment=env)
     
