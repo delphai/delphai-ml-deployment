@@ -9,7 +9,6 @@ from azureml.core.model import InferenceConfig, Environment
 from azureml.core.webservice import AksWebservice, AciWebservice
 from azureml.exceptions import ComputeTargetException, AuthenticationException, ProjectSystemException, WebserviceException
 from azureml.core.authentication import ServicePrincipalAuthentication
-from utils import AMLConfigurationException, AMLDeploymentException
 from adal.adal_error import AdalError
 from msrest.exceptions import AuthenticationError
 from json import JSONDecodeError

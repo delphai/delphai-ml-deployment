@@ -19,7 +19,6 @@ azureml-sdk = "*"
 azureml-core = "*"
 azure-identity="*"
 requests = "*"
-utils = "*"
 
 [requires]
 python_version = "3.8"
