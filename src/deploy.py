@@ -122,8 +122,13 @@ def deploy():
         replicas = 3   
 
     deployment_name = os.environ.get('INPUT_DEPLOYMENT_NAME',default=model_name.replace("_","-"))
-    create_namespace(app_id=app_id, app_secret=app_secret, tenant=tenant_id,namespace=deployment_name)
-    deployment_configration= AksWebservice.deploy_configuration(autoscale_enabled=False, num_replicas=replicas,namespace=deployment_name)
+    try:
+        namespace = create_namespace(app_id=app_id, app_secret=app_secret, tenant=tenant_id,namespace=deployment_name)
+        namespace = deployment_name
+    except:
+        namespace = 'default'
+
+    deployment_configration= AksWebservice.deploy_configuration(autoscale_enabled=False, num_replicas=replicas,namespace=namespace)
 
     # Deploying model
     print("::debug::Deploying model")
